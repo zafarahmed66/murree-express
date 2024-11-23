@@ -1,0 +1,1 @@
+{"root":["./src/app.ts","./src/server.ts","./src/configs/env.ts","./src/controllers/auth.controller.ts","./src/middlewares/auth.middleware.ts","./src/prisma/client.ts","./src/routes/auth.routes.ts","./src/types/env.d.ts","./src/types/express.d.ts","./src/validators/auth.validator.ts"],"version":"5.6.3"}
