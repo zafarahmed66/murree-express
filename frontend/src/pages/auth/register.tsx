@@ -18,7 +18,7 @@ const Register = () => {
         {currentIndex === 1 && (
           <AccountForm initialFormData={initialFormData!} />
         )}
-        <div className="flex items-center justify-center mt-4 space-x-2">
+        <div className="flex items-center justify-center space-x-2">
           <p className="text-gray-500">Already have an account?</p>
           <Link to="/login" className="italic text-blue-500 hover:underline">
             Login

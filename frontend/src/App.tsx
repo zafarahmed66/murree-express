@@ -3,7 +3,6 @@ import ProtectedRoute from "./layouts/protected-route";
 import RegisterPage from "./pages/auth/register";
 import { LoginPage } from "./pages/auth/login";
 import DashboardPage from "./pages/dashboard";
-import { ThemeProvider } from "./context/theme-provider";
 import Classroom from "./pages/classroom/classroom";
 import Activities from "./pages/activities/activites";
 import Learning from "./pages/learning/learning";
@@ -50,11 +49,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <RouterProvider router={router} />
-    </ThemeProvider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

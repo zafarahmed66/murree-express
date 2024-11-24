@@ -65,7 +65,7 @@ export function LoginPage() {
 
   return (
     <section className="flex items-center min-h-screen bg-white dark:bg-gray-900">
-      <div className="w-full md:w-[60%] px-4 py-8 mx-auto lg:py-16">
+      <div className="w-full md:w-[40%] px-4 py-8 mx-auto lg:py-16">
         <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
           Login
         </h2>

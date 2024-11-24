@@ -2,6 +2,7 @@ import type { PropsWithChildren } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import isBrowser from "../helpers/is-browser";
 import isSmallScreen from "../helpers/is-small-screen";
+import { useLocation } from "react-router-dom";
 
 interface SidebarContextProps {
   isOpenOnSmallScreens: boolean;
@@ -12,12 +13,15 @@ interface SidebarContextProps {
 const SidebarContext = createContext<SidebarContextProps>(undefined!);
 
 export function SidebarProvider({ children }: PropsWithChildren) {
-  const location = isBrowser() ? window.location.pathname : "/";
+  const locat = useLocation();
+  const location = isBrowser() ? locat.pathname : "/";
   const [isOpen, setOpen] = useState(
     isBrowser()
       ? window.localStorage.getItem("isSidebarOpen") === "true"
       : false
   );
+
+
 
   useEffect(() => {
     window.localStorage.setItem("isSidebarOpen", isOpen.toString());
@@ -25,6 +29,7 @@ export function SidebarProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (isSmallScreen()) {
+      
       setOpen(false);
     }
   }, [location]);
@@ -33,7 +38,6 @@ export function SidebarProvider({ children }: PropsWithChildren) {
     function handleMobileTapInsideMain(event: MouseEvent) {
       const main = document.querySelector("main");
       const isClickInsideMain = main?.contains(event.target as Node);
-
       if (isSmallScreen() && isClickInsideMain) {
         setOpen(false);
       }

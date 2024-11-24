@@ -1,8 +1,8 @@
 import classNames from "classnames";
-import { Sidebar, TextInput } from "flowbite-react";
+import { Sidebar } from "flowbite-react";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { HiChartPie, HiSearch } from "react-icons/hi";
+import { HiChartPie } from "react-icons/hi";
 import { SiGoogleclassroom } from "react-icons/si";
 import { IoBagHandleSharp } from "react-icons/io5";
 import { RiFileDownloadFill } from "react-icons/ri";
@@ -37,18 +37,9 @@ const CustomSidebar: FC = function () {
         collapsed={isSidebarOpenOnSmallScreens && !isSmallScreen()}
       >
         <div className="flex flex-col justify-between h-full py-2">
-          <div>
-            <form className="pb-3 md:hidden">
-              <TextInput
-                icon={HiSearch}
-                type="search"
-                placeholder="Search"
-                required
-                size={32}
-              />
-            </form>
+          
             <Sidebar.Items>
-              <Sidebar.ItemGroup>
+              <Sidebar.ItemGroup className="">
                 <Link to="/">
                   <Sidebar.Item
                     icon={HiChartPie}
@@ -97,7 +88,6 @@ const CustomSidebar: FC = function () {
                 </Link>
               </Sidebar.ItemGroup>
             </Sidebar.Items>
-          </div>
           <BottomMenu />
         </div>
       </Sidebar>

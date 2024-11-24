@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import {
+  DarkThemeToggle,
   Dropdown,
   Navbar,
 } from "flowbite-react";
@@ -11,7 +12,6 @@ import {
 } from "react-icons/hi";
 import { useSidebarContext } from "../context/SidebarContext";
 import isSmallScreen from "../helpers/is-small-screen";
-import { ModeToggle } from "./mode-toggle";
 import { useAuth } from "../context/auth-context";
 import { ChatAIDrawer } from "./chat-ai-drawer";
 import { IoLogOut } from "react-icons/io5";
@@ -20,9 +20,11 @@ const ExampleNavbar: FC = function () {
   const { isOpenOnSmallScreens, isPageWithSidebar, setOpenOnSmallScreens } =
     useSidebarContext();
   const { logout } = useAuth();
-
   return (
-    <Navbar fluid>
+    <Navbar
+      fluid
+      className="fixed z-30 w-full p-0 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700"
+    >
       <div className="w-full p-3 lg:px-5 lg:pl-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
@@ -51,9 +53,10 @@ const ExampleNavbar: FC = function () {
             </Navbar.Brand>
           </div>
           <div className="flex items-center gap-2 lg:gap-3">
-            <div className="flex items-center">
+            <div className="items-center hidden md:flex">
               <NotificationBellDropdown />
-              <ModeToggle />
+              {/* <ModeToggle /> */}
+              <DarkThemeToggle />
             </div>
 
             <ChatAIDrawer />
