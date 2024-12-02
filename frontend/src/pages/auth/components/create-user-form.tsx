@@ -57,9 +57,15 @@ export function CreateUserForm({ setCurrentIndex, setInitialFormData }: CreateUs
         navigate("/login")
       } catch (error) {
         if (error instanceof AxiosError) {
-          toast.error(error.response?.data.message, {
-            duration: 2000,
-          });
+          if (error.code === "ERR_NETWORK") {
+            toast.error(error.message, {
+              duration: 2000,
+            });
+          } else {
+            toast.error(error.response?.data.message, {
+              duration: 2000,
+            });
+          }
         } else {
           toast.error("Something went wrong!", {
             duration: 2000,
