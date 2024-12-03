@@ -31,6 +31,10 @@ jobs:
           source: "./backend/dist/*"
           target: "${{ secrets.PATH }}"
           script: |
+            echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> ${{ secrets.PATH }}/.env
+            echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> ${{ secrets.PATH }}/.env
+            echo "PORT=${{ secrets.PORT }}" >> ${{ secrets.PATH }}/.env
+            cd ${{ secrets.PATH }}
             pm2 reload all || pm2 start ${{ secrets.PATH }}/backend/dist/server.js --name "my-backend"
 
 
