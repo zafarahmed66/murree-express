@@ -38,12 +38,6 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-            export DATABASE_URL=${{ secrets.DATABASE_URL }}
-            export JWT_SECRET=${{ secrets.JWT_SECRET }}
-            export PORT=${{ secrets.PORT }}
             pm2 reload all || pm2 start ${{ secrets.PATH }}/backend/dist/server.js --name "my-backend"
 
 
