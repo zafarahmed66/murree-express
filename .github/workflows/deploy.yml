@@ -35,4 +35,4 @@ jobs:
           git pull origin main                   
           npm ci                                 
           npm run build                          
-          pm2 restart my-backend                  
+          pm2 restart backend                  
