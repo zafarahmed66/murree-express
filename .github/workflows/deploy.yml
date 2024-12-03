@@ -38,4 +38,9 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            /bin/bash -c "export DATABASE_URL=${{ secrets.DATABASE_URL }} && export JWT_SECRET=${{ secrets.JWT_SECRET }} && export PORT=${{ secrets.PORT }} && pm2 reload all || pm2 start dist/server.js --name 'my-backend'"
+            export DATABASE_URL=${{ secrets.DATABASE_URL }}
+            export JWT_SECRET=${{ secrets.JWT_SECRET }}
+            export PORT=${{ secrets.PORT }}
+            pm2 reload all || pm2 start ${{ secrets.PATH }}/backend/dist/server.js --name "my-backend"
+
+
