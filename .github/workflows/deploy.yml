@@ -1,41 +1,38 @@
-name: Deployment to EC2
+name: Deploy Backend to AWS EC@
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]  
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Create temporary .env for build
-        working-directory: ./backend
-        run: |
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '22'
 
-      - name: Install dependencies and build
-        working-directory: ./backend
-        run: |
-          npm install
-          cd src && npx prisma generate
-          npm run build
+    - name: Install backend dependencies
+      run: npm ci
+      working-directory: ./backend  
 
-      - name: Deploy and restart application on EC2
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            scp -i ${{ secrets.SSH_PRIVATE_KEY }} -o StrictHostKeyChecking=no -r ./backend/dist/* ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.PATH }}/
-            
-            export DATABASE_URL=${{ secrets.DATABASE_URL }}
-            export JWT_SECRET=${{ secrets.JWT_SECRET }}
-            export PORT=${{ secrets.PORT }}
-            
-            pm2 restart my-backend || pm2 start ${{ secrets.PATH }}/backend/dist/server.js --name "my-backend"
+    - name: Deploy to EC@
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        script: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  
+          [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
+          cd ${{ secrets.DEPLOY_PATH }}/backend 
+          pwd
+          git pull origin main                   
+          npm ci                                 
+          npm run build                          
+          pm2 restart my-backend                  
