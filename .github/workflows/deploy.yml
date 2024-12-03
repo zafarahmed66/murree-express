@@ -30,13 +30,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "./backend/dist/*"
           target: "${{ secrets.PATH }}"
-
-      - name: Set environment variables and deploy to EC2
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             pm2 reload all || pm2 start ${{ secrets.PATH }}/backend/dist/server.js --name "my-backend"
 
