@@ -38,8 +38,9 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> ${{ secrets.PATH }}/.env
-            echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> ${{ secrets.PATH }}/.env
-            echo "PORT=${{ secrets.PORT }}" >> ${{ secrets.PATH }}/.env
+            /usr/bin/bash -c 'echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> ${{ secrets.PATH }}.env'
+            /usr/bin/bash -c 'echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> ${{ secrets.PATH }}.env'
+            /usr/bin/bash -c 'echo "PORT=${{ secrets.PORT }}" >> ${{ secrets.PATH }}/.env'
             cd ${{ secrets.PATH }}
-            pm2 reload all || pm2 start server.js --name "my-backend"
+            /usr/bin/bash -c 'pm2 reload all || pm2 start dist/server.js --name "my-backend"'
+
