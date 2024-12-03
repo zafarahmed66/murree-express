@@ -11,12 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Create temporary .env for build
+        working-directory: ./backend
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
+
+
       - name: Install dependencies and build
         working-directory: ./backend
-        env:  
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          PORT: ${{ secrets.PORT }}
         run: |
           npm install
           cd src && npx prisma generate  
