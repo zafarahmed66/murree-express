@@ -31,16 +31,16 @@ jobs:
           source: "./backend/dist/*"
           target: "${{ secrets.PATH }}"
 
-      - name: Create .env file on EC2
+      - name: Set environment variables and deploy to EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            /usr/bin/bash -c 'echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> ${{ secrets.PATH }}.env'
-            /usr/bin/bash -c 'echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> ${{ secrets.PATH }}.env'
-            /usr/bin/bash -c 'echo "PORT=${{ secrets.PORT }}" >> ${{ secrets.PATH }}/.env'
-            cd ${{ secrets.PATH }}
-            /usr/bin/bash -c 'pm2 reload all || pm2 start dist/server.js --name "my-backend"'
+            export DATABASE_URL=${{ secrets.DATABASE_URL }}
+            export JWT_SECRET=${{ secrets.JWT_SECRET }}
+            export PORT=${{ secrets.PORT }}
+            pm2 reload all || pm2 start dist/server.js --name "my-backend"
+
 
