@@ -217,7 +217,7 @@ export function AccountForm({ initialFormData }: AccountFormProps) {
           <div className="flex justify-end">
             <button
               disabled={loading}
-              className="px-6 py-3 text-white bg-blue-500 border rounded-lg hover:bg-blue-600"
+              className={`px-6 py-3 text-white bg-blue-500 border rounded-lg hover:bg-blue-600 ${loading && "opacity-50"}`}
               type="submit"
             >
               Continue

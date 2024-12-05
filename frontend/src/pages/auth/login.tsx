@@ -106,7 +106,7 @@ export function LoginPage() {
           <div className="flex justify-end">
             <button
               disabled={loading}
-              className="px-6 py-3 text-white bg-blue-500 border rounded-lg hover:bg-blue-600"
+              className={`px-6 py-3 text-white bg-blue-500 border rounded-lg hover:bg-blue-600 ${loading && "opacity-50"}`}
               type="submit"
             >
               Continue
@@ -115,7 +115,10 @@ export function LoginPage() {
         </form>
         <div className="flex items-center justify-center mt-4 space-x-2">
           <p className="text-gray-500">Don't have an account?</p>
-          <Link to="/register" className="italic text-blue-500 hover:underline">
+          <Link
+            to="/register"
+            className={`italic text-blue-500 hover:underline`}
+          >
             Register
           </Link>
         </div>

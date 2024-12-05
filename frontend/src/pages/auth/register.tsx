@@ -20,7 +20,7 @@ const Register = () => {
         )}
         <div className="flex items-center justify-center space-x-2">
           <p className="text-gray-500">Already have an account?</p>
-          <Link to="/login" className="italic text-blue-500 hover:underline">
+          <Link to="/login" className={"italic text-blue-500 hover:underline"}>
             Login
           </Link>
         </div>
